@@ -1,6 +1,8 @@
-package Planes;
+package planes;
 
 import models.MilitaryType;
+
+import java.util.Objects;
 
 public class MilitaryPlane extends Plane{
 
@@ -25,13 +27,5 @@ public class MilitaryPlane extends Plane{
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MilitaryPlane)) return false;
-        MilitaryPlane militaryPlane = (MilitaryPlane) o;
-        return militaryType == militaryPlane.militaryType;
-    }
-
-    @Override
-    public int hashCode() { return super.hashCode(); }
+    public int hashCode() { return Objects.hash(super.hashCode(), militaryType); }
 }

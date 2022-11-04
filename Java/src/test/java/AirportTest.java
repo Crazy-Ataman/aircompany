@@ -1,12 +1,12 @@
-import Planes.ExperimentalPlane;
+import planes.ExperimentalPlane;
 import models.ClassificationLevel;
 import models.ExperimentalTypes;
 import models.MilitaryType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import Planes.MilitaryPlane;
-import Planes.PassengerPlane;
-import Planes.Plane;
+import planes.MilitaryPlane;
+import planes.PassengerPlane;
+import planes.Plane;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,36 +32,32 @@ public class AirportTest {
     );
 
     @Test
-    public void testGetTransportMilitaryPlanes() {
+    public void Airport_GetTransportMilitaryPlanes() {
         List<MilitaryPlane> transportMilitaryPlanes = new Airport(planes).getTransportMilitaryPlanes();
         transportMilitaryPlanes.forEach(militaryPlane -> Assert.assertSame(militaryPlane.getType(), MilitaryType.TRANSPORT));
     }
 
     @Test
-    public void testGetPassengerPlaneWithMaxCapacity() {
+    public void Airport_GetPassengerPlaneWithMaxCapacity() {
         PassengerPlane planeWithMaxPassengerCapacity = new PassengerPlane("Boeing-747", 980, 16100, 70500, 242);
         PassengerPlane expectedPlaneWithMaxPassengersCapacity = new Airport(planes).getPassengerPlaneWithMaxPassengersCapacity();
         Assert.assertEquals(planeWithMaxPassengerCapacity, expectedPlaneWithMaxPassengersCapacity);
     }
 
     @Test
-    public void testNextPlaneMaxLoadCapacityIsHigherThanCurrent() {
-        List<? extends Plane> planesSortedByMaxLoadCapacity = new Airport(planes).sortByMaxLoadCapacity().getPlanes();
-
-        boolean nextPlaneMaxLoadCapacityIsHigherThanCurrent = true;
+    public void Airport_CheckSort_SortByMaxLoadCapacity() {
+        Airport airport = new Airport(planes);
+        airport.sortByMaxLoadCapacity();
+        List<? extends Plane> planesSortedByMaxLoadCapacity = airport.getPlanes();
         for (int i = 0; i < planesSortedByMaxLoadCapacity.size() - 1; i++) {
             Plane currentPlane = planesSortedByMaxLoadCapacity.get(i);
             Plane nextPlane = planesSortedByMaxLoadCapacity.get(i + 1);
-            if (currentPlane.getMaxLoadCapacity() > nextPlane.getMaxLoadCapacity()) {
-                nextPlaneMaxLoadCapacityIsHigherThanCurrent = false;
-                break;
-            }
+            Assert.assertTrue(currentPlane.getMinLoadCapacity() <= nextPlane.getMinLoadCapacity());
         }
-        Assert.assertTrue(nextPlaneMaxLoadCapacityIsHigherThanCurrent);
     }
 
     @Test
-    public void testHasAtLeastOneBomberInMilitaryPlanes() {
+    public void Airport_GetBomberMilitaryPlanes() {
         List<MilitaryPlane> bomberMilitaryPlanes = new Airport(planes).getBomberMilitaryPlanes();
         bomberMilitaryPlanes.forEach(militaryPlane -> Assert.assertSame(militaryPlane.getType(), MilitaryType.BOMBER));
     }

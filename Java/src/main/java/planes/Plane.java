@@ -1,4 +1,6 @@
-package Planes;
+package planes;
+
+import java.util.Objects;
 
 abstract public class Plane {
     String model;
@@ -27,6 +29,8 @@ abstract public class Plane {
 
     public int getMaxLoadCapacity() { return this.maxLoadCapacity; }
 
+    public int getMinLoadCapacity() { return maxLoadCapacity; }
+
     @Override
     public String toString() {
         return "Plane{" +
@@ -38,10 +42,22 @@ abstract public class Plane {
     }
 
     @Override
-    public boolean equals(Object o) { return super.equals(o); }
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj instanceof Plane) {
+            Plane plane = (Plane) obj;
+            return maxSpeed == plane.maxSpeed &&
+                    maxFlightDistance == plane.maxFlightDistance &&
+                    maxLoadCapacity == plane.maxLoadCapacity &&
+                    Objects.equals(model, plane.model);
+        }
+        return false;
+    }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(model, maxSpeed, maxFlightDistance, maxLoadCapacity);
     }
 }

@@ -1,4 +1,4 @@
-package Planes;
+package planes;
 
 import java.util.Objects;
 
@@ -21,14 +21,6 @@ public class PassengerPlane extends Plane{
                 ", maxFlightDistance=" + this.getMaxFlightDistance() +
                 ", maxLoadCapacity=" + this.getMaxLoadCapacity() +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PassengerPlane)) return false;
-        PassengerPlane plane = (PassengerPlane) o;
-        return passengersCapacity == plane.passengersCapacity;
     }
 
     @Override

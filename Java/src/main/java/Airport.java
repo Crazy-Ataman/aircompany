@@ -1,8 +1,8 @@
-import Planes.ExperimentalPlane;
+import planes.ExperimentalPlane;
 import models.MilitaryType;
-import Planes.MilitaryPlane;
-import Planes.PassengerPlane;
-import Planes.Plane;
+import planes.MilitaryPlane;
+import planes.PassengerPlane;
+import planes.Plane;
 
 import java.util.*;
 
@@ -12,9 +12,12 @@ public class Airport {
     private List<? extends Plane> planes;
 
     public List<PassengerPlane> getPassengerPlane() {
-        List<? extends Plane> planesList = this.planes;
         List<PassengerPlane> passengersPlanesList = new ArrayList<>();
-        for (Plane plane : planesList) {if (plane instanceof PassengerPlane) {passengersPlanesList.add((PassengerPlane) plane);}}
+        for (Plane plane : planes) {
+            if (plane instanceof PassengerPlane) {
+                passengersPlanesList.add((PassengerPlane) plane);
+            }
+        }
         return passengersPlanesList;
     }
 
@@ -90,13 +93,11 @@ public class Airport {
         return planes;
     }
 
-    private void print(Collection<? extends Plane> collection) {
-        for (Plane plane : collection) { System.out.println(plane); }
-    }
-
     @Override
     public String toString() {
-        return "Airport{Planes=" + planes.toString() + "}";
+        return "Airport{" +
+                "Planes=" + planes.toString() +
+                "\n}";
     }
 
 }
